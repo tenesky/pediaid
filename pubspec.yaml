@@ -12,6 +12,13 @@ dependencies:
   cupertino_icons: ^1.0.8
   google_fonts: ^6.1.0
   shared_preferences: ^2.0.0
+  # Paket zum Auswählen von Dateien (z.B. ZIP‑Updates). Die App nutzt es
+  # gegenwärtig als Platzhalter für den ZIP‑Import, der noch nicht umgesetzt ist.
+  file_picker: ^5.2.5
+  # Paket zum Entpacken von ZIP‑Archiven. Wird benötigt, um Offline‑Datenpakete
+  # zu importieren und die enthaltenen JSON‑Dateien in den lokalen Speicher
+  # zu schreiben.
+  archive: ^3.3.9
 
 dev_dependencies:
   flutter_test:
@@ -22,8 +29,19 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
+  # Einbindung zusätzlicher Assets. Neben den vorhandenen JSON‑Dateien für
+  # Indikationen und Medikamente werden nun Checklisten und Leitlinien
+  # eingebunden, damit sie im Build verfügbar sind. Die Reihenfolge spielt
+  # keine Rolle, aber jede Datei muss explizit angegeben werden.
+  assets:
+    - assets/data/indications.json
+    - assets/data/medications.json
+    - assets/data/checklists.json
+    - assets/data/guidelines.json
+    - assets/data/profiles.json
+
 flutter_launcher_icons:
   android: true
   ios: true
-  image_path: assets/icons/pediaid_icon.jpg
+  image_path: assets/icons/dreamflow_icon.jpg
   remove_alpha_ios: true

@@ -10,6 +10,10 @@ import 'package:pediaid/screens/formulas_screen.dart';
 import 'package:pediaid/screens/norms_screen.dart';
 import 'package:pediaid/screens/search_screen.dart';
 import 'package:pediaid/screens/profile_screen.dart';
+import 'package:pediaid/screens/checklists_screen.dart';
+import 'package:pediaid/screens/favorites_screen.dart';
+import 'package:pediaid/screens/comparison_screen.dart';
+import 'package:pediaid/screens/guideline_search_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,6 +24,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final _settings = SettingsService();
+  final _stats = StatisticsService();
   double _ageYears = 5.0;
   double _weightKg = 20.0;
   double _heightCm = 110.0;
@@ -55,12 +60,16 @@ class _HomeScreenState extends State<HomeScreen> {
     final level = await _settings.getProfileLevel();
     final state = await _settings.getProfileState();
     final area = await _settings.getProfileArea();
+    final country = await _settings.getProfileCountry();
+    // Für Länderebene den Ländercode als state-Parameter verwenden, damit
+    // _composeProfile keine zusätzliche Variable benötigt.
+    final regionOrCountry = level == 'country' ? country : state;
     setState(() {
       _weightUnit = wu;
       _lengthUnit = lu;
       _ageYears = defAge;
       _weightKg = defWeightKg;
-      _profileBadge = _composeProfile(level, state, area);
+      _profileBadge = _composeProfile(level, regionOrCountry, area);
     });
   }
 
@@ -85,7 +94,17 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         child: BottomNavigationBar(
           currentIndex: _selectedIndex,
-          onTap: (index) => setState(() => _selectedIndex = index),
+          onTap: (index) {
+            setState(() => _selectedIndex = index);
+            // Nutzungsstatistiken erhöhen, wenn per BottomNavigation zu einem Screen gewechselt wird
+            if (index == 1) {
+              _stats.increment('indications');
+            } else if (index == 2) {
+              _stats.increment('calculator');
+            } else if (index == 3) {
+              _stats.increment('info');
+            }
+          },
           type: BottomNavigationBarType.fixed,
           elevation: 0,
           selectedItemColor: PediColors.blue,
@@ -170,19 +189,46 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisSpacing: 16,
               childAspectRatio: 1.2,
               children: [
-                _buildQuickAccessCard(context, 'Indikationen', Icons.medical_services, PediColors.blue, () => setState(() => _selectedIndex = 1)),
-                _buildQuickAccessCard(context, 'Rechner', Icons.calculate, PediColors.green, () => setState(() => _selectedIndex = 2)),
+                _buildQuickAccessCard(context, 'Indikationen', Icons.medical_services, PediColors.blue, () {
+                  // Statistik erhöhen und zur Indikationsseite wechseln
+                  _stats.increment('indications');
+                  setState(() => _selectedIndex = 1);
+                }),
+                _buildQuickAccessCard(context, 'Rechner', Icons.calculate, PediColors.green, () {
+                  _stats.increment('calculator');
+                  setState(() => _selectedIndex = 2);
+                }),
                 _buildQuickAccessCard(context, 'Notfallmodus', Icons.emergency, PediColors.red, () {
+                  _stats.increment('emergency');
                   Navigator.push(context, MaterialPageRoute(builder: (_) => EmergencyScreen(patientData: _patientData)));
                 }),
                 _buildQuickAccessCard(context, 'Suche', Icons.search, PediColors.purple, () {
+                  _stats.increment('search');
                   Navigator.push(context, MaterialPageRoute(builder: (_) => const SearchScreen()));
                 }),
                 _buildQuickAccessCard(context, 'Formeln', Icons.functions, PediColors.orange, () {
+                  _stats.increment('formulas');
                   Navigator.push(context, MaterialPageRoute(builder: (_) => const FormulasScreen()));
                 }),
                 _buildQuickAccessCard(context, 'Normwerte', Icons.rule, PediColors.yellow, () {
+                  _stats.increment('norms');
                   Navigator.push(context, MaterialPageRoute(builder: (_) => const NormsScreen()));
+                }),
+                _buildQuickAccessCard(context, 'Checklisten', Icons.list_alt, PediColors.pink, () {
+                  _stats.increment('checklists');
+                  Navigator.push(context, MaterialPageRoute(builder: (_) => const ChecklistsScreen()));
+                }),
+                _buildQuickAccessCard(context, 'Favoriten', Icons.star, PediColors.orange, () {
+                  _stats.increment('favorites');
+                  Navigator.push(context, MaterialPageRoute(builder: (_) => const FavoritesScreen()));
+                }),
+                _buildQuickAccessCard(context, 'Vergleich', Icons.compare_arrows, PediColors.purple, () {
+                  _stats.increment('comparison');
+                  Navigator.push(context, MaterialPageRoute(builder: (_) => const ComparisonScreen()));
+                }),
+                _buildQuickAccessCard(context, 'Leitlinien', Icons.menu_book, PediColors.green, () {
+                  _stats.increment('guidelines');
+                  Navigator.push(context, MaterialPageRoute(builder: (_) => const GuidelineSearchScreen()));
                 }),
               ],
             ),
@@ -277,32 +323,59 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  /// Builds a quick‑access card with unified styling. The card uses a tinted
+  /// background derived from the provided [color] to aid recognition and
+  /// barrierefreiheit. A tooltip and semantics label are added for
+  /// screen‑reader support.
   Widget _buildQuickAccessCard(BuildContext context, String title, IconData icon, Color color, VoidCallback onTap) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(16),
-      child: Card(
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(icon, size: 40, color: color),
-              const SizedBox(height: 12),
-              Text(title, textAlign: TextAlign.center, style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600)),
-            ],
+    // Create a soft tint for the card background by blending the color with white.
+    final Color backgroundTint = color.withOpacity(0.12);
+    return Semantics(
+      label: 'Schnellzugriff $title',
+      button: true,
+      child: Tooltip(
+        message: title,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(16),
+          child: Card(
+            color: backgroundTint,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            elevation: 0,
+            child: Container(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(icon, size: 40, color: color),
+                  const SizedBox(height: 12),
+                  Text(
+                    title,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium
+                        ?.copyWith(fontWeight: FontWeight.w600),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ),
     );
   }
 
-  String _composeProfile(String level, String? state, String? area) {
-    if (level == 'area' && (state != null || area != null)) {
-      return 'Profil: ${state ?? '-'} – ${area ?? '-'}';
+  String _composeProfile(String level, String? region, String? area) {
+    // region repräsentiert entweder Land (bei Level 'country') oder Bundesland (bei Level 'state'/'area')
+    if (level == 'area' && (region != null || area != null)) {
+      return 'Profil: ${region ?? '-'} – ${area ?? '-'}';
     }
-    if (level == 'state' && state != null) {
-      return 'Profil: $state';
+    if (level == 'state' && region != null) {
+      return 'Profil: $region';
+    }
+    if (level == 'country' && region != null) {
+      return 'Profil: $region';
     }
     return 'Profil: Allgemein (Standard)';
   }

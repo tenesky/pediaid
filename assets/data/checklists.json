@@ -1,0 +1,92 @@
+[
+  {
+    "id": "chk_cABCDE",
+    "title": "cABCDE-Schema",
+    "steps": [
+      "c - Catastrophic bleeding: Stoppe lebensbedrohliche Blutungen",
+      "A - Airway: Sichere den Atemweg und schütze die Halswirbelsäule",
+      "B - Breathing: Beurteile die Atmung und beginne bei Bedarf Beatmung",
+      "C - Circulation: Beurteile die Kreislaufsituation, kontrolliere Blutungen",
+      "D - Disability: Prüfe den neurologischen Status (AVPU/GCS)",
+      "E - Exposure: Entkleide vollständig, achte auf Unterkühlung"
+    ],
+    "description": "Standard‑Algorithmus zur strukturierten Versorgung im Notfall",
+    "source": "ERC 2025"
+  },
+  {
+    "id": "chk_BLS_paed",
+    "title": "Basic Life Support (Kind)",
+    "steps": [
+      "Bewusstsein prüfen und Hilfe rufen (Rettungsdienst 112)",
+      "Freie Atemwege sicherstellen, Atmung kontrollieren",
+      "Falls keine Atmung: 5 initiale Beatmungen durchführen",
+      "30 Thoraxkompressionen (Tiefe ca. 4–5 cm, Frequenz 100–120/min)",
+      "2 Beatmungen im Verhältnis 30 : 2 fortsetzen",
+      "Defibrillator (AED) einsetzen, sobald verfügbar"
+    ],
+    "description": "Wiederbelebungsalgorithmus für Kinder gemäß ERC 2025",
+    "source": "ERC 2025"
+  },
+  {
+    "id": "chk_airway_management",
+    "title": "Atemwegs‑Management (Algorithmus)",
+    "steps": [
+      "Bewusstsein und Spontanatmung beurteilen; Hilfe rufen und Monitoring beginnen",
+      "Atemweg öffnen: Kopfüberstreckung/Chin Lift oder bei Verdacht auf HWS‑Trauma Jaw‑Thrust",
+      "Atemweg absaugen, grobe Fremdkörper entfernen, ggf. nasale/orale Atemwegshilfen einsetzen",
+      "Sauerstoffgabe mit Maske/Reservoir, bei unzureichender Atmung Beutel‑Maske‑Beatmung",
+      "Entscheidung für definitive Atemwegsicherung (z. B. endotracheale Intubation, Larynxmaske) treffen und vorbereiten",
+      "Intubationsversuche möglichst < 30 s, Zwischenbeatmung und erneute Oxygenierung sicherstellen",
+      "Lagekontrolle (Kapnometrie, Auskultation) und Fixierung des Tubus",
+      "Fortlaufende Überwachung und Dokumentation"
+    ],
+    "description": "Grundlegender Algorithmus zur Sicherung des pädiatrischen Atemwegs",
+    "source": "DGAI/DIVI Leitlinien"
+  },
+  {
+    "id": "chk_anaphylaxie_management",
+    "title": "Anaphylaxie‑Management (Kind)",
+    "steps": [
+      "Ersteinschätzung: Symptome wie Urtikaria, Atemnot, Schwellungen, Blutdruckabfall erkennen und Sofortmaßnahme einleiten",
+      "Notruf veranlassen, Monitoring beginnen und venösen Zugang etablieren",
+      "Positionierung: Lagerung mit angehobenem Oberkörper, bei Kreislaufstillstand flach lagern",
+      "Adrenalin i.m. 10 µg/kg (0,1 ml 1:1.000) in den anterolateralen Oberschenkel injizieren; bei Persistenz alle 5–10 min wiederholen【627339154261290†L1496-L1574】",
+      "Sauerstoffgabe (bis 15 l/min) und Assistenzbeatmung bei respiratorischer Insuffizienz",
+      "Volumentherapie: balancierte Elektrolytlösung 20 ml/kg als Bolus, ggf. wiederholen bis Hämodynamik stabil【627339154261290†L944-L947】",
+      "Ggf. Antihistaminika (z. B. Dimetinden 0,03 mg/kg) und Glukokortikoide (z. B. Hydrocortison 2–4 mg/kg) verabreichen",
+      "Patient*in überwachen, Transport in geeignete Klinik veranlassen"
+    ],
+    "description": "Notfallmaßnahmen bei schwerer allergischer Reaktion nach S2k‑Leitlinie Anaphylaxie",
+    "source": "S2k Leitlinie Anaphylaxie"
+  },
+  {
+    "id": "chk_sepsis_management",
+    "title": "Sepsis/Septischer Schock (Kind)",
+    "steps": [
+      "Sepsisverdacht erkennen (Fieber, Hypothermie, Tachykardie, Hypotension, verlängerte Rekap-Zeit) und Sepsis-Huddle auslösen",
+      "Sofortmaßnahmen: Monitoring starten, venösen oder intraossären Zugang innerhalb von 20 min herstellen, Blutkulturen/Laktat entnehmen, breitbandige Antibiotika innerhalb von 15 min verabreichen【37012590657672†L786-L849】",
+      "Flüssigkeitstherapie (niedriges Überlastungsrisiko): erste Bolusgabe 20 ml/kg ausgewogene Elektrolytlösung (max. 1 l), reevaluieren und bei Bedarf zweite Bolusgabe 20 ml/kg (max. 2 l); bei Persistenz ein drittes Bolus 20 ml/kg bis insgesamt 60 ml/kg (max. 3 l)【37012590657672†L711-L714】",
+      "Flüssigkeitstherapie (hohes Überlastungsrisiko, z. B. kardiale Erkrankung): 5–10 ml/kg als Bolus, ggf. wiederholen bis maximal 2 l unter strenger Beobachtung【37012590657672†L711-L731】",
+      "Reevaluation nach jedem Bolus: Puls, Blutdruck, Rekap-Zeit, mentale Lage und Urinausscheidung; bei fehlender Besserung >40–60 ml/kg spricht man von flüssigkeitsrefraktärem Schock und vasoaktive Therapie (Adrenalin/Noradrenalin) wird eingeleitet【37012590657672†L155-L162】",
+      "Persistiert die Hypoperfusion trotz 60 ml/kg Flüssigkeit und ≥2 Vasoaktiva, liegt ein katecholaminrefraktärer Schock vor – frühzeitige Intensivtherapie (PICU/ECMO) organisieren【37012590657672†L155-L162】"
+    ],
+    "description": "Algorithmus zur initialen Behandlung der pädiatrischen Sepsis/septischen Schocks basierend auf klinischen Pfaden (Sepsis‑Huddle, Flüssigkeitstherapie, Reevaluation und Vasopressoren)",
+    "source": "Pediatric Sepsis Clinical Pathway (Johns Hopkins All Children’s Hospital)【37012590657672†L711-L714】【37012590657672†L786-L849】【37012590657672†L155-L162】"
+  }
+
+  ,
+  {
+    "id": "chk_io_access_child",
+    "title": "Intraossärer Zugang (Kind)",
+    "steps": [
+      "Indikation prüfen: akut vital bedrohtes Kind oder Reanimation; peripherer i.v.-Zugang nicht möglich oder innerhalb von 60 sekunden nicht erreichbar",
+      "Geeigneten Punktionsort wählen: proximaler Humerus (Jugendliche), distales Femur, proximale Tibia oder distale Tibia entsprechend Indikation und Zugänglichkeit",
+      "Kontraindikationen am Punktionsort ausschließen: Infektion, Fraktur, Prothese oder vorausgegangene intraossäre Punktion am selben Knochen innerhalb der letzten 48 Stunden【497971729462848†L1096-L1124】",
+      "Punktion durchführen und schnell mit 2–5 ml NaCl 0,9 % (bei Reanimation 5–10 ml) spülen; Blut aspirieren zur Lagekontrolle; bei Fehlpunktionen einen anderen Punktionsort wählen【497971729462848†L1090-L1099】",
+      "Lidocain ist bei pädiatrischen Patient*innen nicht empfohlen; Analgesie (z. B. intranasal) nur nach lokalem Protokoll erwägen【497971729462848†L1088-L1137】",
+      "Nach erfolgreicher Lagekontrolle Medikamente und Flüssigkeit verabreichen; ABCDE-Schema fortsetzen und den i.o.-Zugang überwachen"
+    ],
+    "description": "Schlüsselmaßnahmen für das Anlegen eines intraossären Zugangs bei Kindern gemäß DBRD Musteralgorithmen 2025",
+    "source": "DBRD Musteralgorithmen 2025【497971729462848†L1096-L1124】"
+  }
+]

@@ -170,11 +170,14 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
   Widget _gridPrimary(BuildContext context) {
     final tiles = _emergencyIndications.take(4).toList();
     return GridView.builder(
+      // Im Notfallmodus sollen die Karten groß und leicht bedienbar sein. Durch
+      // Verwendung einer Spalte werden die Kacheln über die gesamte Breite
+      // dargestellt. childAspectRatio > 1 sorgt für zusätzliche Höhe.
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 12,
-        mainAxisSpacing: 12,
-        childAspectRatio: 0.9,
+        crossAxisCount: 1,
+        crossAxisSpacing: 16,
+        mainAxisSpacing: 16,
+        childAspectRatio: 1.3,
       ),
       itemCount: tiles.length,
       itemBuilder: (context, index) {
@@ -200,7 +203,14 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(ind.name, style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, color: color)),
+            Text(
+              ind.name,
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: color,
+                    fontSize: 24,
+                  ),
+            ),
             const SizedBox(height: 8),
             if (keyDose != null) keyDose,
             const SizedBox(height: 6),

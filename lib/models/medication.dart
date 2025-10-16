@@ -98,4 +98,21 @@ class Medication {
     }
     return calculatedDose;
   }
+
+  /// Extract a numeric milligram-per-millilitre value from the concentration string.
+  ///
+  /// Concentration definitions in the dataset often include a value like
+  /// "1 mg/ml" or "0.1 mg/ml". This helper uses a regular expression to
+  /// capture that numeric part (accepting comma or dot as decimal separator)
+  /// and converts it to a double. If the concentration string does not
+  /// contain such a pattern, `null` is returned.
+  double? mgPerMl() {
+    final reg = RegExp(r'([0-9]+(?:[.,][0-9]+)?)\s*mg\/ml', caseSensitive: false);
+    final match = reg.firstMatch(concentration);
+    if (match != null) {
+      final raw = match.group(1)!.replaceAll(',', '.');
+      return double.tryParse(raw);
+    }
+    return null;
+  }
 }

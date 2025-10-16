@@ -3,6 +3,7 @@ import 'package:pediaid/models/indication.dart';
 import 'package:pediaid/models/medication.dart';
 import 'package:pediaid/models/patient_data.dart';
 import 'package:pediaid/services/medication_service.dart';
+import 'package:pediaid/services/favorite_service.dart';
 import 'package:pediaid/theme.dart';
 
 class IndicationDetailScreen extends StatefulWidget {
@@ -21,8 +22,10 @@ class IndicationDetailScreen extends StatefulWidget {
 
 class _IndicationDetailScreenState extends State<IndicationDetailScreen> {
   final _medicationService = MedicationService();
+  final FavoriteService _favoriteService = FavoriteService();
   List<Medication> _medications = [];
   bool _isLoading = true;
+  Set<String> _favoriteMedIds = {};
 
   @override
   void initState() {
@@ -32,9 +35,19 @@ class _IndicationDetailScreenState extends State<IndicationDetailScreen> {
 
   Future<void> _loadMedications() async {
     final meds = await _medicationService.getMedicationsByIndication(widget.indication.name);
+    final favIds = await _favoriteService.getFavorites('medication');
     setState(() {
       _medications = meds;
+      _favoriteMedIds = favIds.toSet();
       _isLoading = false;
+    });
+  }
+
+  Future<void> _toggleFavoriteMedication(Medication med) async {
+    await _favoriteService.toggleFavorite('medication', med.id);
+    final favIds = await _favoriteService.getFavorites('medication');
+    setState(() {
+      _favoriteMedIds = favIds.toSet();
     });
   }
 
@@ -147,6 +160,9 @@ class _IndicationDetailScreenState extends State<IndicationDetailScreen> {
   Widget _buildMedicationCard(Medication medication, Color accentColor) {
     final weight = widget.patientData.weightKg ?? 20.0;
     final calculatedDose = medication.calculateDose(weight);
+    final mgPerMl = medication.mgPerMl();
+    final volumeMl = mgPerMl != null ? calculatedDose / mgPerMl : null;
+    final isFav = _favoriteMedIds.contains(medication.id);
     
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
@@ -168,6 +184,15 @@ class _IndicationDetailScreenState extends State<IndicationDetailScreen> {
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
                   ),
                 ),
+                // Favoriten-Icon
+                IconButton(
+                  icon: Icon(
+                    isFav ? Icons.star : Icons.star_border,
+                    color: isFav ? Colors.orange : Colors.grey,
+                  ),
+                  tooltip: isFav ? 'Als Favorit entfernen' : 'Als Favorit merken',
+                  onPressed: () => _toggleFavoriteMedication(medication),
+                ),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
@@ -185,6 +210,10 @@ class _IndicationDetailScreenState extends State<IndicationDetailScreen> {
             _buildInfoRow('Dosierung', '${medication.dosePerKg} ${medication.unit}/kg'),
             const SizedBox(height: 8),
             _buildInfoRow('Berechnete Dosis', '${calculatedDose.toStringAsFixed(2)} ${medication.unit}', highlight: true, color: accentColor),
+            if (volumeMl != null) ...[
+              const SizedBox(height: 4),
+              _buildInfoRow('≈ Volumen', '${volumeMl.toStringAsFixed(2)} ml', highlight: true, color: accentColor),
+            ],
             if (medication.maxDose != null) ...[
               const SizedBox(height: 8),
               _buildInfoRow('Max. Dosis', '${medication.maxDose} ${medication.unit}'),

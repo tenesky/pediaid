@@ -5,6 +5,7 @@ import 'package:pediaid/services/indication_service.dart';
 import 'package:pediaid/theme.dart';
 import 'package:pediaid/screens/indication_detail_screen.dart';
 import 'package:pediaid/services/settings_service.dart';
+import 'package:pediaid/services/favorite_service.dart';
 
 class IndicationsScreen extends StatefulWidget {
   final PatientData patientData;
@@ -23,10 +24,16 @@ class _IndicationsScreenState extends State<IndicationsScreen> {
   String _profileBadge = '';
   bool _filterOnly = false;
 
+  // Favoritenverwaltung
+  final _favoriteService = FavoriteService();
+  Set<String> _favoriteIds = {};
+  bool _loadingFavorites = true;
+
   @override
   void initState() {
     super.initState();
     _loadIndications();
+    _loadFavorites();
   }
 
   Future<void> _loadIndications() async {
@@ -35,11 +42,21 @@ class _IndicationsScreenState extends State<IndicationsScreen> {
     final state = await _settings.getProfileState();
     final area = await _settings.getProfileArea();
     final filter = await _settings.getProfileFilterOnly();
+    final country = await _settings.getProfileCountry();
+    final regionOrCountry = level == 'country' ? country : state;
     setState(() {
       _indications = indications;
       _isLoading = false;
-      _profileBadge = _composeProfile(level, state, area);
+      _profileBadge = _composeProfile(level, regionOrCountry, area);
       _filterOnly = filter;
+    });
+  }
+
+  Future<void> _loadFavorites() async {
+    final favs = await _favoriteService.getFavorites('indication');
+    setState(() {
+      _favoriteIds = favs.toSet();
+      _loadingFavorites = false;
     });
   }
 
@@ -71,7 +88,7 @@ class _IndicationsScreenState extends State<IndicationsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Indikationen')),
-      body: _isLoading
+      body: _isLoading || _loadingFavorites
         ? const Center(child: CircularProgressIndicator())
         : ListView(
             padding: const EdgeInsets.all(16),
@@ -101,6 +118,7 @@ class _IndicationsScreenState extends State<IndicationsScreen> {
               ..._indications.map((indication) {
                 final color = _getColorForBand(indication.colorBand);
                 final icon = _getIconForName(indication.iconName);
+                final bool isFav = _favoriteIds.contains(indication.id);
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 16),
                   child: InkWell(
@@ -166,7 +184,29 @@ class _IndicationsScreenState extends State<IndicationsScreen> {
                                 ],
                               ),
                             ),
-                            Icon(Icons.chevron_right, color: Colors.grey[400]),
+                            // Favoritenstern und Pfeil
+                            Row(
+                              children: [
+                                IconButton(
+                                  icon: Icon(
+                                    isFav ? Icons.star : Icons.star_border,
+                                    color: isFav ? PediColors.orange : Colors.grey[400],
+                                  ),
+                                  tooltip: isFav ? 'Als Favorit entfernen' : 'Als Favorit merken',
+                                  onPressed: () async {
+                                    await _favoriteService.toggleFavorite('indication', indication.id);
+                                    setState(() {
+                                      if (isFav) {
+                                        _favoriteIds.remove(indication.id);
+                                      } else {
+                                        _favoriteIds.add(indication.id);
+                                      }
+                                    });
+                                  },
+                                ),
+                                Icon(Icons.chevron_right, color: Colors.grey[400]),
+                              ],
+                            ),
                           ],
                         ),
                       ),
@@ -179,12 +219,16 @@ class _IndicationsScreenState extends State<IndicationsScreen> {
     );
   }
 
-  String _composeProfile(String level, String? state, String? area) {
-    if (level == 'area' && (state != null || area != null)) {
-      return 'Profil: ${state ?? '-'} – ${area ?? '-'}';
+  String _composeProfile(String level, String? region, String? area) {
+    // region repräsentiert entweder Land (bei Level 'country') oder Bundesland (bei Level 'state'/'area')
+    if (level == 'area' && (region != null || area != null)) {
+      return 'Profil: ${region ?? '-'} – ${area ?? '-'}';
     }
-    if (level == 'state' && state != null) {
-      return 'Profil: $state';
+    if (level == 'state' && region != null) {
+      return 'Profil: $region';
+    }
+    if (level == 'country' && region != null) {
+      return 'Profil: $region';
     }
     return 'Profil: Allgemein';
   }

@@ -1,0 +1,52 @@
+[
+  {
+    "id": "ind_001",
+    "name": "Anaphylaxie",
+    "description": "Lebensbedrohliche allergische Reaktion",
+    "iconName": "warning",
+    "colorBand": "red",
+    "medicationIds": ["med_001"],
+    "createdAt": "2025-10-15T00:00:00Z",
+    "updatedAt": "2025-10-15T00:00:00Z"
+  },
+  {
+    "id": "ind_002",
+    "name": "Reanimation",
+    "description": "Herz-Kreislauf-Stillstand",
+    "iconName": "favorite",
+    "colorBand": "red",
+    "medicationIds": ["med_002", "med_008"],
+    "createdAt": "2025-10-15T00:00:00Z",
+    "updatedAt": "2025-10-15T00:00:00Z"
+  },
+  {
+    "id": "ind_003",
+    "name": "Krampfanfall",
+    "description": "Zerebrale Krampfaktivität",
+    "iconName": "flash_on",
+    "colorBand": "yellow",
+    "medicationIds": ["med_003", "med_007"],
+    "createdAt": "2025-10-15T00:00:00Z",
+    "updatedAt": "2025-10-15T00:00:00Z"
+  },
+  {
+    "id": "ind_004",
+    "name": "Asthma",
+    "description": "Akute Atemwegsobstruktion",
+    "iconName": "air",
+    "colorBand": "blue",
+    "medicationIds": ["med_004", "med_005"],
+    "createdAt": "2025-10-15T00:00:00Z",
+    "updatedAt": "2025-10-15T00:00:00Z"
+  },
+  {
+    "id": "ind_005",
+    "name": "Bradykardie",
+    "description": "Verlangsamter Herzschlag",
+    "iconName": "monitor_heart",
+    "colorBand": "green",
+    "medicationIds": ["med_006"],
+    "createdAt": "2025-10-15T00:00:00Z",
+    "updatedAt": "2025-10-15T00:00:00Z"
+  }
+]

@@ -19,6 +19,9 @@ class SettingsService {
   static const String _profileAreaKey = 'profile_area';
   static const String _profileFilterOnlyKey = 'profile_filter_only'; // bool
 
+  // Neues Feld für Länderprofile
+  static const String _profileCountryKey = 'profile_country';
+
   // Accessibility
   static const String _a11yLargeTextKey = 'a11y_large_text';
   static const String _a11yHighContrastKey = 'a11y_high_contrast';
@@ -76,6 +79,21 @@ class SettingsService {
       await prefs.remove(_profileAreaKey);
     } else {
       await prefs.setString(_profileAreaKey, area);
+    }
+  }
+
+  // Länderprofil
+  Future<String?> getProfileCountry() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(_profileCountryKey);
+  }
+
+  Future<void> setProfileCountry(String? country) async {
+    final prefs = await SharedPreferences.getInstance();
+    if (country == null) {
+      await prefs.remove(_profileCountryKey);
+    } else {
+      await prefs.setString(_profileCountryKey, country);
     }
   }
 

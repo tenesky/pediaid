@@ -1,0 +1,124 @@
+[
+  {
+    "id": "guid_defibrillation",
+    "title": "Defibrillationsenergie",
+    "summary": "Erste Schockdosis: 2–4 J/kg, nachfolgende Dosen ≥4 J/kg (max. 10 J/kg)",
+    "details": "Für Kinder mit Kammerflimmern oder pulsloser ventrikulärer Tachykardie wird laut ILCOR/ERC 2025 eine initiale Defibrillationsenergie von 2–4 Joule pro kg Körpergewicht empfohlen. Bei refraktärem Kammerflimmern sollten weitere Schockdosen mindestens 4 J/kg betragen; höhere Energien können erwogen werden, jedoch nicht mehr als 10 J/kg.",
+    "source": "ILCOR/ERC 2025"
+    ,"iconName": "flash_on"
+  },
+  {
+    "id": "guid_anaphylaxie_volumen",
+    "title": "Volumentherapie bei Anaphylaxie",
+    "summary": "Initial 20 ml/kg balancierte Elektrolytlösung; Wiederholung bei Bedarf",
+    "details": "Die S2k‑Leitlinie zur Akuttherapie der Anaphylaxie empfiehlt bei Kindern mit anaphylaktischem Schock eine erste Bolusgabe von 20 ml/kg Körpergewicht einer balancierten Elektrolytlösung, die so schnell wie möglich verabreicht wird. Nach Reevaluation können weitere Bolusgaben von 20 ml/kg verabreicht werden, bis sich die Hämodynamik stabilisiert.",
+    "source": "S2k‑Leitlinie Anaphylaxie 2021"
+    ,"iconName": "water_drop"
+  }
+  ,
+  {
+    "id": "guid_bpr_defibrillation",
+    "title": "Manuelle Defibrillation (BPR 2025)",
+    "summary": "Manuelle biphasische Defibrillation: 4 J/kg, bei refraktärer pVT/VF Steigerung auf bis zu 8 J/kg",
+    "details": "Die Standardarbeitsanweisung und der Behandlungspfad Rettungsdienst Dresden (BPR 2025) empfehlen bei Kindern mit pulsloser ventrikulärer Tachykardie oder Kammerflimmern eine manuelle biphasische Defibrillation mit 4 J/kg Körpergewicht. Bei refraktärer pVT/VF nach sechs Schocks kann die Energie schrittweise bis maximal 8 J/kg gesteigert werden. Die Rhythmusanalyse sollte durch die Anwenderin bzw. den Anwender erfolgen und möglichst kurze Unterbrechungen der Thoraxkompression (<10 s) zulassen.",
+    "source": "SAA/BPR Dresden 2025【360850714356176†L5955-L5961】【360850714356176†L5992-L5994】"
+    ,"iconName": "flash_on"
+  },
+  {
+    "id": "guid_bpr_medikation",
+    "title": "Medikamentengabe bei Reanimation (BPR 2025)",
+    "summary": "Adrenalin 0,01 mg/kg (max. 1 mg) und Amiodaron 5 mg/kg (max. 300 mg) bei pVT/VF",
+    "details": "Laut BPR 2025 soll bei pädiatrischen Reanimationen Adrenalin in einer Dosis von 0,01 mg/kg Körpergewicht intravenös verabreicht werden (maximal 1 mg pro Gabe). Bei persistierender pulsloser ventrikulärer Tachykardie oder Kammerflimmern wird nach dem dritten Schock einmalig Amiodaron mit 5 mg/kg (max. 300 mg) injiziert; bei weiter bestehender pVT/VF kann nach dem fünften Schock eine Repetition mit 5 mg/kg (max. 150 mg) erfolgen.",
+    "source": "SAA/BPR Dresden 2025【360850714356176†L6011-L6026】"
+    ,"iconName": "medication"
+  },
+  {
+    "id": "guid_anaphylaxie_adrenalin",
+    "title": "Adrenalin bei Anaphylaxie",
+    "summary": "Intramuskulär 10 µg/kg (0,05–0,1 ml 1:1.000) und bei schwerem Schock titriert 0,01 ml/kg i.v.",
+    "details": "Die S2k‑Leitlinie zur Akuttherapie der Anaphylaxie empfiehlt bei respiratorischen Symptomen oder Schock die intramuskuläre Gabe von Adrenalin 1:1.000 mit 10 µg/kg Körpergewicht (entspricht 0,05–0,1 ml bei <15 kg, 0,15–0,3 ml bei 15–30 kg und 0,3–0,6 ml bei 30–60 kg). Bei schwerem Schock und wenn die intramuskuläre Gabe nicht möglich ist, kann Adrenalin 1:10.000 titriert intravenös oder intraossär verabreicht werden (0,01 ml/kg). Die Leitlinie betont, dass nach Stabilisierung weitere antihistaminische und glukokortikoide Medikamente gegeben werden können.",
+    "source": "S2k‑Leitlinie Anaphylaxie 2021【627339154261290†L1496-L1574】"
+    ,"iconName": "warning"
+  }
+  ,
+  {
+    "id": "guid_aggn_ketamin",
+    "title": "Ketamin zur Analgesie und Narkose (AGNN 2024)",
+    "summary": "Analgesie: 0,125–0,25 mg/kg i.v. oder 0,25–0,5 mg/kg i.m.; Narkose: 1–2 mg/kg i.v.",
+    "details": "Die AGNN‑Therapieempfehlungen 2024 geben für die Anwendung von Ketamin bei Kindern folgende Dosierungen an: Zur Analgesie werden 0,125–0,25 mg/kg Körpergewicht intravenös (alternativ 0,25–0,5 mg/kg intramuskulär) empfohlen. Zur Narkose beträgt die Dosis 1–2 mg/kg i.v. Begleitmedikation mit Benzodiazepinen wird aufgrund psychomimetischer Nebenwirkungen angeraten; Atropin kann hypersalivatorische Effekte reduzieren. Ketamin sollte sorgfältig titriert und bei Herzinsuffizienz, Hypertonie oder anderen kardiovaskulären Erkrankungen mit Vorsicht eingesetzt werden.",
+    "source": "AGNN‑Therapieempfehlungen Notfallmedizin 2024【605806071615395†L690-L707】"
+    ,"iconName": "science"
+  },
+  {
+    "id": "guid_aggn_paracetamol_ibuprofen",
+    "title": "Paracetamol und Ibuprofen zur Analgesie (AGNN 2024)",
+    "summary": "Ibuprofen: 10 mg/kg p.o. oder rektal (Tageshöchstdosis 40 mg/kg); Paracetamol: 15–30 mg/kg initial rektal, danach 10–20 mg/kg (max. 40–60 mg/kg)",
+    "details": "Als peripher wirksame Analgetika werden in den AGNN‑Therapieempfehlungen Ibuprofen und Paracetamol empfohlen. Ibuprofen ist im Kindesalter in einer Dosis von circa 10 mg/kg Körpergewicht per os oder rektal einsetzbar; die Tageshöchstdosis liegt bei 40 mg/kg. Paracetamol kann rektal mit 15–30 mg/kg als Erstdosis verabreicht werden; bei Bedarf folgen weitere Dosen von 10–20 mg/kg. Die Tageshöchstdosis beträgt 40–60 mg/kg; Zäpfchen sollen nicht geteilt werden【605806071615395†L720-L740】.",
+    "source": "AGNN‑Therapieempfehlungen Notfallmedizin 2024【605806071615395†L720-L740】"
+    ,"iconName": "pill"
+  }
+  ,
+  {
+    "id": "guid_status_epilepticus",
+    "title": "Status epilepticus – Behandlungsschritte",
+    "summary": "Initial Lorazepam 0,1 mg/kg i.v. (max. 4 mg); ohne i.v.-Zugang Midazolam 0,2 mg/kg i.m./i.n. (max. 10 mg) oder Diazepam rektal 0,5 mg/kg (2–5 J.), 0,3 mg/kg (6–11 J.) bzw. 0,2 mg/kg (≥ 12 J., max. 20 mg). Bei Persistenz Fosphenytoin 20 mg PE/kg (≥ 1 Monat) oder Phenobarbital 20 mg/kg (Neonaten). Refraktär: Levetiracetam 20–60 mg/kg, Phenobarbital 20 mg/kg oder Valproat 20–40 mg/kg.",
+    "details": "Das Stanford‑Behandlungsschema für den pädiatrischen Status epilepticus sieht eine stufenweise Gabe von Antiepileptika vor. In den ersten fünf Minuten (0–5 min) wird Lorazepam intravenös mit 0,1 mg/kg verabreicht (maximal 4 mg); alternativ bei fehlendem i.v.-Zugang Midazolam mit 0,2 mg/kg intramuskulär oder intranasal (maximal 10 mg) oder Diazepam rektal (0,5 mg/kg bei 2–5 Jahren, 0,3 mg/kg bei 6–11 Jahren, 0,2 mg/kg bei ≥ 12 Jahren, maximal 20 mg)【720195500499962†L74-L83】. Persistieren die Krämpfe nach 6–10 min trotz Benzodiazepin, erfolgt die Gabe eines zweiten Antiepileptikums: bei Kindern ≥ 1 Monat Fosphenytoin mit 20 mg Phenytoinäquivalent pro kg Körpergewicht (Infusionsrate 3 mg PE/kg/min), bei Neugeborenen < 1 Monat Phenobarbital 20 mg/kg (Rate 2 mg/kg/min)【720195500499962†L92-L97】. Bei refraktärem Status epilepticus (>30 min oder nach zwei Antiepileptika ohne Ansprechen) sind Levetiracetam 20–60 mg/kg, Phenobarbital 20 mg/kg oder Valproat 20–40 mg/kg möglich; bei Säuglingen < 2 Monaten kann Pyridoxin 50–100 mg eingesetzt werden【720195500499962†L124-L133】.",
+    "source": "Pediatric Status Epilepticus Pathway, Stanford Medicine 2020/23【720195500499962†L74-L83】【720195500499962†L92-L97】【720195500499962†L124-L133】"
+    ,"iconName": "bolt"
+  },
+  {
+    "id": "guid_sepsis_fluid",
+    "title": "Flüssigkeitstherapie bei pädiatrischer Sepsis",
+    "summary": "20 ml/kg (max. 1 l) initial; bis 40 ml/kg (max. 2 l) und ggf. bis 60 ml/kg (max. 3 l) bei niedrigem Überlastungsrisiko",
+    "details": "Im Clinical Pathway für pädiatrische Sepsis wird bei Kindern mit niedrigem Risiko für Flüssigkeitsüberladung eine initiale Bolusgabe von 20 ml/kg einer ausgewogenen Elektrolytlösung empfohlen, mit Wiederholung auf insgesamt 40 ml/kg und bei Bedarf einem dritten Bolus auf 60 ml/kg (entsprechend bis zu 3 l). Bei Patient*innen mit erhöhtem Risiko (z. B. kardiale oder pulmonale Vorerkrankungen) wird eine vorsichtigere Bolusgröße von 5–10 ml/kg empfohlen und ein Maximalvolumen von 2 l erreicht【37012590657672†L711-L731】.",
+    "source": "Pediatric Sepsis Clinical Pathway, Johns Hopkins All Children’s Hospital【37012590657672†L711-L731】"
+    ,"iconName": "opacity"
+  },
+  {
+    "id": "guid_sepsis_early_management",
+    "title": "Frühzeitiges Management der pädiatrischen Sepsis",
+    "summary": "Sepsis‑Huddle, i.v./i.o‑Zugang (20 min), Antibiotika innerhalb 15 min, zwei Flüssigkeitsboli innerhalb 60 min",
+    "details": "Der Notfallpfad für pädiatrische Sepsis betont die Dringlichkeit der Frühtherapie: Nachdem Sepsis vermutet wird, sollen ein Sepsis‑Huddle einberufen, ein intravenöser oder intraossärer Zugang innerhalb von 20 Minuten gelegt und Blutkulturen sowie Laktat entnommen werden. Breitbandantibiotika sollen spätestens 15 Minuten nach Sepsisdiagnose verabreicht werden. Innerhalb der ersten 60 Minuten sollten zwei Flüssigkeitsboli verabreicht werden, gefolgt von Reevaluation und Erwägung von Vasopressoren bei persistierender Hypoperfusion【37012590657672†L786-L849】.",
+    "source": "Pediatric Sepsis Clinical Pathway, Johns Hopkins All Children’s Hospital【37012590657672†L786-L849】"
+    ,"iconName": "schedule"
+  },
+  {
+    "id": "guid_sepsis_shock_definitions",
+    "title": "Definitionen: Flüssigkeits‑ und katecholaminrefraktärer Schock",
+    "summary": "Flüssigkeitsrefraktärer Schock: anhaltende Hypoperfusion trotz 40–60 ml/kg; Katecholaminrefraktärer Schock: Schock trotz ≥60 ml/kg und ≥2 Vasopressoren",
+    "details": "In pädiatrischen Sepsisleitlinien wird der flüssigkeitsrefraktäre Schock als anhaltende Hypoperfusion trotz 40–60 ml/kg verabreichter Flüssigkeit definiert. Falls der Schock trotz 60 ml/kg Flüssigkeit und der Anwendung von mindestens zwei Vasoaktiva persistiert, handelt es sich um einen katecholaminrefraktären Schock, der eine intensivmedizinische Versorgung und ggf. ECMO erfordert【37012590657672†L155-L162】.",
+    "source": "Pediatric Sepsis Clinical Pathway, Johns Hopkins All Children’s Hospital【37012590657672†L155-L162】"
+    ,"iconName": "info"
+  }
+
+  ,
+  {
+    "id": "guid_mittelsachsen_defibrillation",
+    "title": "Defibrillation – Mittelsachsen (SAA 2023)",
+    "summary": "Manuelle biphasische Defibrillation 4 J/kg; keine Steigerung über 8 J/kg",
+    "details": "In den Standardarbeitsanweisungen des Rettungsdienstbereichs Mittelsachsen 2023 wird bei pädiatrischen Reanimationen mit pulsloser ventrikulärer Tachykardie oder Kammerflimmern eine manuelle biphasische Defibrillation mit 4 Joule pro kg Körpergewicht empfohlen. Persistiert die pVT/VF, wird die Energie beibehalten; eine Steigerung über 8 J/kg wird nicht empfohlen. Diese regionale Vorgabe weicht geringfügig von den nationalen Empfehlungen ab, indem sie eine konservative Energiebegrenzung vorsieht.",
+    "source": "SAA Mittelsachsen 2023",
+    "region": "DE-SN-Mittelsachsen"
+    ,"iconName": "flash_on"
+  }
+  ,
+  {
+    "id": "guid_ssoe_defibrillation",
+    "title": "Defibrillation – Sächsische Schweiz/Osterzgebirge",
+    "summary": "Initial 4 J/kg; bei Refraktärität Erhöhung auf 6 J/kg",
+    "details": "Die SOP für den Rettungsdienstbereich Sächsische Schweiz/Osterzgebirge empfiehlt bei pVT/VF eine initiale Defibrillation mit 4 J/kg. Bleibt der Rhythmus refraktär nach drei Schocks, wird eine moderate Energieerhöhung auf 6 J/kg empfohlen. Weitere Erhöhungen sollen 8 J/kg nicht überschreiten.",
+    "source": "SOP Sächsische Schweiz/Osterzgebirge 2023",
+    "region": "DE-SN-SächsischeSchweizOsterzgebirge"
+    ,"iconName": "flash_on"
+  }
+  ,
+  {
+    "id": "guid_chemnitz_defibrillation",
+    "title": "Defibrillation – Chemnitz/Erzgebirge",
+    "summary": "Initial 3–4 J/kg; bei Persistenz Erhöhung bis 8 J/kg",
+    "details": "Im Rettungsdienstbereich Chemnitz/Erzgebirge wird eine initiale Energie von 3–4 J/kg für die Defibrillation bei Kindern mit pVT/VF empfohlen. Bei persistierendem Rhythmus kann die Energie schrittweise auf bis zu 8 J/kg erhöht werden. Diese Empfehlung lehnt sich an die allgemeinen BPR 2025 Regeln an, erlaubt jedoch einen geringeren Einstieg bei kleinen Kindern.",
+    "source": "SOP Chemnitz/Erzgebirge 2023",
+    "region": "DE-SN-ChemnitzErzgebirge"
+    ,"iconName": "flash_on"
+  }
+]

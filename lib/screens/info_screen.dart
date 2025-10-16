@@ -3,6 +3,12 @@ import 'package:pediaid/theme.dart';
 import 'package:pediaid/screens/legal_screen.dart';
 import 'package:pediaid/services/settings_service.dart';
 import 'package:pediaid/screens/settings_screen.dart';
+import 'package:pediaid/services/indication_service.dart';
+import 'package:pediaid/services/medication_service.dart';
+import 'package:pediaid/services/guideline_service.dart';
+import 'package:pediaid/services/dataset_import_service.dart';
+import 'package:pediaid/models/guideline.dart';
+import 'package:pediaid/services/statistics_service.dart';
 
 class InfoScreen extends StatefulWidget {
   const InfoScreen({super.key});
@@ -15,15 +21,40 @@ class _InfoScreenState extends State<InfoScreen> {
   final _settingsService = SettingsService();
   String _lastUpdate = '10/2025';
 
+  List<Guideline> _guidelines = [];
+  bool _loadingGuidelines = true;
+
+  Map<String, int> _usageStats = {};
+  bool _loadingStats = true;
+
   @override
   void initState() {
     super.initState();
     _loadUpdateInfo();
+    _loadGuidelines();
+    _loadStats();
   }
 
   Future<void> _loadUpdateInfo() async {
     final date = await _settingsService.getLastUpdateDate();
     setState(() => _lastUpdate = date);
+  }
+
+  Future<void> _loadGuidelines() async {
+    final service = GuidelineService();
+    final list = await service.getAllGuidelines();
+    setState(() {
+      _guidelines = list;
+      _loadingGuidelines = false;
+    });
+  }
+
+  Future<void> _loadStats() async {
+    final stats = await StatisticsService().getAllStats();
+    setState(() {
+      _usageStats = stats;
+      _loadingStats = false;
+    });
   }
 
   @override
@@ -99,15 +130,61 @@ class _InfoScreenState extends State<InfoScreen> {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton.icon(
-                      onPressed: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Update-Funktion in Entwicklung')),
-                        );
+                      onPressed: () async {
+                        // Reload datasets from bundled assets and update the stored
+                        // last update date. This simulates an offline update.
+                        await IndicationService().reloadDataFromAssets();
+                        await MedicationService().reloadDataFromAssets();
+                        final now = DateTime.now();
+                        final formatted = '${now.month.toString().padLeft(2, '0')}/${now.year}';
+                        await _settingsService.setLastUpdateDate(formatted);
+                        setState(() => _lastUpdate = formatted);
+                        if (mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Daten erfolgreich aktualisiert')),
+                          );
+                        }
                       },
                       icon: const Icon(Icons.refresh),
                       label: const Text('Daten aktualisieren'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: PediColors.blue,
+                        foregroundColor: Colors.white,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      onPressed: () async {
+                        // Importiere ein ZIP‑Paket. Die Funktion gibt true zurück,
+                        // wenn mindestens eine Datei geschrieben wurde.
+                        final success = await DatasetImportService().importDataset();
+                        if (success) {
+                          // Aktualisiere das Datum, damit der Nutzer weiß, wann das
+                          // letzte Paket importiert wurde.
+                          final now = DateTime.now();
+                          final formatted = '${now.month.toString().padLeft(2, '0')}/${now.year}';
+                          await _settingsService.setLastUpdateDate(formatted);
+                          setState(() => _lastUpdate = formatted);
+                          if (mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Datenpaket erfolgreich importiert')),
+                            );
+                          }
+                        } else {
+                          if (mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Kein Import durchgeführt')),
+                            );
+                          }
+                        }
+                      },
+                      icon: const Icon(Icons.file_download),
+                      label: const Text('Paket importieren'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: PediColors.orange,
                         foregroundColor: Colors.white,
                       ),
                     ),
@@ -156,6 +233,110 @@ class _InfoScreenState extends State<InfoScreen> {
             Icons.gavel,
             PediColors.red,
           ),
+          const SizedBox(height: 24),
+
+          // Abschnitt für Nutzungsstatistiken
+          _buildSection('Nutzungshäufigkeit'),
+          if (_loadingStats)
+            const Center(child: CircularProgressIndicator())
+          else
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ..._usageStats.entries.map((entry) {
+                      final nameMap = {
+                        'indications': 'Indikationen',
+                        'calculator': 'Rechner',
+                        'emergency': 'Notfallmodus',
+                        'search': 'Suche',
+                        'formulas': 'Formeln',
+                        'norms': 'Normwerte',
+                        'checklists': 'Checklisten',
+                        'info': 'Info',
+                        'favorites': 'Favoriten',
+                        'comparison': 'Vergleich',
+                        'guidelines': 'Leitlinien',
+                      };
+                      final title = nameMap[entry.key] ?? entry.key;
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 8),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(title, style: Theme.of(context).textTheme.bodyMedium),
+                            Text(entry.value.toString(), style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold)),
+                          ],
+                        ),
+                      );
+                    }).toList(),
+                    const SizedBox(height: 12),
+                    SizedBox(
+                      width: double.infinity,
+                      child: OutlinedButton.icon(
+                        onPressed: () async {
+                          await StatisticsService().reset();
+                          setState(() {
+                            _usageStats = {};
+                          });
+                        },
+                        icon: const Icon(Icons.restart_alt),
+                        label: const Text('Statistik zurücksetzen'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+          const SizedBox(height: 24),
+          _buildSection('Leitlinien (Demo)'),
+          if (_loadingGuidelines)
+            const Center(child: CircularProgressIndicator())
+          else
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: _guidelines.map((g) {
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 12),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            g.title,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            g.summary,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall
+                                ?.copyWith(color: Colors.grey[700]),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            'Quelle: ${g.source}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelSmall
+                                ?.copyWith(color: Colors.grey[500]),
+                          ),
+                        ],
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ),
+            ),
           const SizedBox(height: 24),
           _buildSection('Rechtliches'),
           _buildMenuTile(context, 'Impressum', Icons.business, () {

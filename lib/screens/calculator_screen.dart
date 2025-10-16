@@ -160,6 +160,11 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     final color = _getColorForBand(med.colorBand);
     final calculatedDose = med.calculateDose(_weightKg);
     final isMaxDoseReached = med.maxDose != null && calculatedDose >= med.maxDose!;
+    // Try to compute volume (ml) based on the concentration. If the concentration
+    // string contains a value like "1 mg/ml" we parse it via mgPerMl() and
+    // divide the calculated dose by that number. Otherwise the volume remains null.
+    final mgPerMl = med.mgPerMl();
+    final volumeMl = mgPerMl != null ? calculatedDose / mgPerMl : null;
     
     return Card(
       child: Container(
@@ -230,6 +235,17 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       color: color,
                     ),
                   ),
+                  // If we have a convertible volume, display the corresponding ml on a new line
+                  if (volumeMl != null) ...[
+                    const SizedBox(height: 4),
+                    Text(
+                      '≈ ${volumeMl.toStringAsFixed(2)} ml',
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: color,
+                      ),
+                    ),
+                  ],
                   if (isMaxDoseReached) ...[
                     const SizedBox(height: 8),
                     Container(

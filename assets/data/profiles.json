@@ -1,0 +1,39 @@
+{
+  "countries": [
+    {
+      "code": "DE",
+      "name": "Deutschland",
+      "states": [
+        {
+          "code": "SN",
+          "name": "Sachsen",
+          "areas": [
+            { "code": "MS", "name": "Mittelsachsen" },
+            { "code": "SSE", "name": "Sächsische Schweiz/Osterzgebirge" },
+            { "code": "CE", "name": "Chemnitz/Erzgebirge" }
+          ]
+        },
+        {
+          "code": "BW",
+          "name": "Baden-Württemberg",
+          "areas": []
+        },
+        {
+          "code": "BY",
+          "name": "Bayern",
+          "areas": []
+        }
+      ]
+    },
+    {
+      "code": "AT",
+      "name": "Österreich",
+      "states": []
+    },
+    {
+      "code": "CH",
+      "name": "Schweiz",
+      "states": []
+    }
+  ]
+}
