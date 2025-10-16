@@ -1,7 +1,7 @@
 name: pediaid
 description: "PediAid is an intuitive, offline-first app empowering medical professionals with rapid, reliable pediatric emergency guidance, wrapped in a modern design inspired by a Broselow tape."
 publish_to: "none"
-version: 1.0.0
+version: 1.0.1+1
 
 environment:
   sdk: ^3.6.0
