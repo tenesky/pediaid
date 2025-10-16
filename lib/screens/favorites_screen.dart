@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pediaid/models/indication.dart';
+import 'package:pediaid/models/guideline.dart';
 import 'package:pediaid/models/patient_data.dart';
 import 'package:pediaid/models/checklist.dart';
 import 'package:pediaid/models/medication.dart';
@@ -89,7 +90,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (_) => IndicationDetailScreen(indication: indication, patientData: IndicationPatientDataPlaceholder()),
+                                  builder: (_) => IndicationDetailScreen(indication: indication, patientData: IndicationPatientDataPlaceholder),
                                 ),
                               );
                             },
@@ -178,7 +179,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                     if (_favGuidelines.isNotEmpty) ...[
                       Text('Leitlinien', style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
                       const SizedBox(height: 8),
-                      ..._favGuidelines.map((g) {
+                    ..._favGuidelines.map((Guideline g) {
                         final icon = _getIconForGuideline(g.iconName);
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 12),
@@ -340,3 +341,5 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   /// Da die Favoritenliste nicht die aktuellen Patientendaten enthält, aber
   /// IndicationDetailScreen diese benötigt, übergeben wir ein Dummy-Objekt.
   PatientData get IndicationPatientDataPlaceholder => PatientData(ageYears: 0, weightKg: 0, heightCm: 0);
+
+}

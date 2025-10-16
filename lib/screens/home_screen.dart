@@ -14,6 +14,7 @@ import 'package:pediaid/screens/checklists_screen.dart';
 import 'package:pediaid/screens/favorites_screen.dart';
 import 'package:pediaid/screens/comparison_screen.dart';
 import 'package:pediaid/screens/guideline_search_screen.dart';
+import 'package:pediaid/services/statistics_service.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
